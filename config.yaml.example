@@ -1,0 +1,15 @@
+interval: 60
+sites:
+  - url: https://mysite.com
+    timeout: 5
+
+alerts:
+  enabled: true
+  failures: 3
+  cooldown: 30
+  email:
+    to: user@mailserver.com
+    smtp_host: smtp.mailserver.com
+    smtp_port: 25
+    smtp_user: user@mailserver.com
+    smtp_password: ***Password***
