@@ -15,8 +15,9 @@ import (
 func main() {
 	C, err := config.LoadConfig("./config.yaml")
 	if err != nil {
-		log.Print(err)
+		log.Fatal(err)
 	}
+
 	chekr := model.NewUpChecker(time.Duration(C.Interval)*time.Second, C.Alerts)
 
 	for _, site := range *C.Sites {

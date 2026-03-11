@@ -43,7 +43,7 @@ func (uch *upChecker) sendAlert(url string, failed int) {
 		return
 	}
 
-	// Отправляем email
+	// email
 	msg := fmt.Sprintf("Subject: Site Down Alert\r\n\r\n"+
 		"Site: %s is down!\r\n"+
 		"Consecutive failed: %d\r\n"+
@@ -94,7 +94,8 @@ func (uch *upChecker) checkSite(url string) {
 				url, stats.Failed)
 		}
 		stats.Failed = 0
-		log.Printf("[OK] %s - %d (%v)", url, resp.StatusCode, latency)
+		_ = latency // !TODO
+		// log.Printf("[OK] %s - %d (%v)", url, resp.StatusCode, latency)
 	}
 
 	if resp != nil {
@@ -105,13 +106,7 @@ func (uch *upChecker) checkSite(url string) {
 func (uch *upChecker) Start() {
 	ticker := time.NewTicker(uch.interval)
 
-	// Первая проверка УБРАТЬ
-	for url := range uch.Sites {
-		go uch.checkSite(url)
-	}
-
 	for {
-
 		select {
 		case <-ticker.C:
 			for url := range uch.Sites {
